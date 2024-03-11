@@ -1,5 +1,7 @@
-package com.quizapp.worklingo.model.user;
+package com.quizapp.worklingo.controller;
 
+import com.quizapp.worklingo.model.user.ChangePasswordRequest;
+import com.quizapp.worklingo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
