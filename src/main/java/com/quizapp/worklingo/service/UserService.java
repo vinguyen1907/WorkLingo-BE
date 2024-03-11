@@ -1,9 +1,12 @@
-package com.quizapp.worklingo.model.user;
+package com.quizapp.worklingo.service;
 
+import com.quizapp.worklingo.model.user.ChangePasswordRequest;
+import com.quizapp.worklingo.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.quizapp.worklingo.repository.UserRepository;
 
 import java.security.Principal;
 
