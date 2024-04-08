@@ -143,8 +143,7 @@ public class AuthenticationService implements IAuthenticationService {
     otpRepository.save(
             new OTP(
                     null,
-//                    user.getId(),
-                    111,
+                    user,
                     otp,
                     LocalDateTime.now().plusMinutes(1)
             )
