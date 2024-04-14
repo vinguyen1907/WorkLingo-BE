@@ -1,4 +1,4 @@
-package com.quizapp.worklingo.dto;
+package com.quizapp.worklingo.dto.request;
 
 import com.quizapp.worklingo.model.user.Role;
 import lombok.AllArgsConstructor;

@@ -1,9 +1,8 @@
 package com.quizapp.worklingo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import com.quizapp.worklingo.dto.LessonDTO;
+import com.quizapp.worklingo.model.user.User;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,13 +15,25 @@ import java.util.List;
 @NoArgsConstructor
 public class Lesson {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @OneToOne
+
+    @ManyToOne
     private Topic topic;
-    private Integer authorId;
-    private Double averageRating;
-    private Integer numberOfRatings;
+
+    @ManyToOne
+    private User author;
+
+    private Integer numberOfUpVotes;
+
+    private Integer numberOfDownVotes;
+
     private Integer numberOfFlashcards;
-    @OneToMany
+
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
     private List<Flashcard> flashcards;
+
+    public LessonDTO toDTO() {
+        return new LessonDTO(this);
+    }
 }

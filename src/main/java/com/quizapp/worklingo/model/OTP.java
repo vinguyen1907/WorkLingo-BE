@@ -19,7 +19,7 @@ public class OTP {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
-    private User userId;
+    private User user;
     private String otp;
     private LocalDateTime expiryTime;
 }
