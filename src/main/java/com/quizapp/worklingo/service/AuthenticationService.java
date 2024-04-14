@@ -2,9 +2,9 @@ package com.quizapp.worklingo.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.quizapp.worklingo.config.JwtService;
-import com.quizapp.worklingo.dto.AuthenticationRequest;
+import com.quizapp.worklingo.dto.request.AuthenticationRequest;
 import com.quizapp.worklingo.dto.AuthenticationResponse;
-import com.quizapp.worklingo.dto.RegisterRequest;
+import com.quizapp.worklingo.dto.request.RegisterRequest;
 import com.quizapp.worklingo.model.OTP;
 import com.quizapp.worklingo.model.token.Token;
 import com.quizapp.worklingo.model.token.TokenRepository;
@@ -143,8 +143,7 @@ public class AuthenticationService implements IAuthenticationService {
     otpRepository.save(
             new OTP(
                     null,
-//                    user.getId(),
-                    111,
+                    user,
                     otp,
                     LocalDateTime.now().plusMinutes(1)
             )

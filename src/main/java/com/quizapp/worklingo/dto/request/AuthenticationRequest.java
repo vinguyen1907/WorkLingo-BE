@@ -1,4 +1,4 @@
-package com.quizapp.worklingo.dto;
+package com.quizapp.worklingo.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

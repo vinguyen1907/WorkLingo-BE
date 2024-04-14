@@ -1,8 +1,8 @@
 package com.quizapp.worklingo.service.interfaces;
 
-import com.quizapp.worklingo.dto.AuthenticationRequest;
+import com.quizapp.worklingo.dto.request.AuthenticationRequest;
 import com.quizapp.worklingo.dto.AuthenticationResponse;
-import com.quizapp.worklingo.dto.RegisterRequest;
+import com.quizapp.worklingo.dto.request.RegisterRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 

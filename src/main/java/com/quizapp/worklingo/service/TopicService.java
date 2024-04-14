@@ -1,5 +1,6 @@
 package com.quizapp.worklingo.service;
 
+import com.quizapp.worklingo.dto.LessonDTO;
 import com.quizapp.worklingo.model.Lesson;
 import com.quizapp.worklingo.model.Topic;
 import com.quizapp.worklingo.repository.LessonRepository;
@@ -32,8 +33,9 @@ public class TopicService implements ITopicService {
     }
 
     @Override
-    public Page<Lesson> getLessonsInTopic(Integer topicId, int page, int pageSize) {
+    public Page<LessonDTO> getLessonsInTopic(Integer topicId, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
-        return lessonRepository.findAllByTopicId(topicId, pageable);
+        var lessons = lessonRepository.findAllByTopicId(topicId, pageable);
+        return lessons.map(Lesson::toDTO);
     }
 }

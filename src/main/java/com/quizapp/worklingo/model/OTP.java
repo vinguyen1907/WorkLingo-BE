@@ -1,9 +1,7 @@
 package com.quizapp.worklingo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.quizapp.worklingo.model.user.User;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +18,8 @@ public class OTP {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer userId;
+    @ManyToOne
+    private User user;
     private String otp;
     private LocalDateTime expiryTime;
 }
