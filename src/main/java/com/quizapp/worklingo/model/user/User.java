@@ -1,5 +1,6 @@
 package com.quizapp.worklingo.model.user;
 
+import com.quizapp.worklingo.dto.UserDTO;
 import com.quizapp.worklingo.model.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class User implements UserDetails {
   private String password;
   private String jobTitle;
   private String avatarUrl;
+  private String bio;
 
   @Enumerated(EnumType.STRING)
   private Role role;
@@ -69,5 +71,9 @@ public class User implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  public UserDTO toDTO() {
+    return new UserDTO(this);
   }
 }
