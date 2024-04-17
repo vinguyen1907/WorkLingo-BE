@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/lessons")
 @RequiredArgsConstructor
@@ -38,11 +40,9 @@ public class LessonController {
 
     @GetMapping("/{lessonId}/flashcards")
     @Operation(summary = "This method is used to get flashcards in a lesson.")
-    public ResponseEntity<PageDTO<FlashcardDTO>> getFlashcardsInLesson(
-            @PathVariable Integer lessonId,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+    public ResponseEntity<List<FlashcardDTO>> getFlashcardsInLesson(
+            @PathVariable Integer lessonId
     ) {
-        return ResponseEntity.ok(lessonService.getFlashcardsInLesson(lessonId, page, size));
+        return ResponseEntity.ok(lessonService.getFlashcardsInLesson(lessonId));
     }
 }

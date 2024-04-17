@@ -17,6 +17,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class LessonService implements ILessonService {
@@ -36,9 +39,8 @@ public class LessonService implements ILessonService {
     }
 
     @Override
-    public PageDTO<FlashcardDTO> getFlashcardsInLesson(Integer lessonId, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return new PageDTO<>(flashcardRepository.findAllByLessonId(lessonId, pageable).map(Flashcard::toDTO));
+    public List<FlashcardDTO> getFlashcardsInLesson(Integer lessonId) {
+        return flashcardRepository.findAllByLessonId(lessonId).stream().map(Flashcard::toDTO).toList();
     }
 
     @Override
