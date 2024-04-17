@@ -33,6 +33,16 @@ public class Lesson {
     @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
     private List<Flashcard> flashcards;
 
+    public Lesson(Lesson lesson) {
+        this.id = lesson.getId();
+        this.topic = lesson.getTopic();
+        this.author = lesson.getAuthor();
+        this.numberOfUpVotes = lesson.getNumberOfUpVotes();
+        this.numberOfDownVotes = lesson.getNumberOfDownVotes();
+        this.numberOfFlashcards = lesson.getNumberOfFlashcards();
+        this.flashcards = lesson.getFlashcards();
+    }
+
     public LessonDTO toDTO() {
         return new LessonDTO(this);
     }
