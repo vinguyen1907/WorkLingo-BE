@@ -1,6 +1,5 @@
 package com.quizapp.worklingo.dto;
 
-import com.quizapp.worklingo.model.Flashcard;
 import com.quizapp.worklingo.model.Lesson;
 import com.quizapp.worklingo.model.Topic;
 import lombok.Data;
@@ -10,6 +9,8 @@ import java.util.List;
 @Data
 public class LessonDTO {
     private Integer id;
+
+    private String title;
 
     private Topic topic;
 
@@ -23,6 +24,7 @@ public class LessonDTO {
 
     public LessonDTO(Lesson lesson) {
         this.id = lesson.getId();
+        this.title = lesson.getTitle();
         this.topic = lesson.getTopic();
         this.authorId = lesson.getAuthor().getId();
         this.numberOfUpVotes = lesson.getNumberOfUpVotes();
