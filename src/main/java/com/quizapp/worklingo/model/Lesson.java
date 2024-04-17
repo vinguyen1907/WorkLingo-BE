@@ -18,6 +18,8 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String title;
+
     @ManyToOne
     private Topic topic;
 
@@ -35,6 +37,7 @@ public class Lesson {
 
     public Lesson(Lesson lesson) {
         this.id = lesson.getId();
+        this.title = lesson.getTitle();
         this.topic = lesson.getTopic();
         this.author = lesson.getAuthor();
         this.numberOfUpVotes = lesson.getNumberOfUpVotes();
