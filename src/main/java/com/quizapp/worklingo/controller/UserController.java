@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 
@@ -26,6 +27,14 @@ public class UserController {
     private final UserService userService;
     private final IFavoritesService favoritesService;
 
+    @GetMapping("/{userId}")
+    @Operation(summary = "Get information of an user.")
+    public ResponseEntity<UserDTO> getUserById(
+            @PathVariable Integer userId
+    ) {
+        return ResponseEntity.ok(userService.getUserById(userId));
+    }
+
     @PatchMapping
     @Operation(summary = "This method is used to change password of an user.")
     public ResponseEntity<?> changePassword(
@@ -34,6 +43,24 @@ public class UserController {
     ) {
         userService.changePassword(request, connectedUser);
         return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{userId}")
+    @Operation(summary = "Update information of an user.")
+    public ResponseEntity<UserDTO> updateUser(
+            @PathVariable Integer userId,
+            @RequestBody UpdateUserProfileRequest request
+    ) {
+        return ResponseEntity.ok(userService.updateProfile(userId, request.getFirstName(), request.getLastName(), request.getJobTitle(), request.getBio()));
+    }
+
+    @PutMapping("/{userId}/avatar")
+    @Operation(summary = "Change avatar image of an user.")
+    public ResponseEntity<UserDTO> changeAvatarImage(
+            @PathVariable Integer userId,
+            @RequestParam MultipartFile avatarFile
+    ) {
+        return ResponseEntity.ok(userService.changeAvatarImage(userId, avatarFile));
     }
 
     @GetMapping("/{userId}/favorites")
