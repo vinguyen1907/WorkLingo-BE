@@ -1,5 +1,6 @@
 package com.quizapp.worklingo.dto;
 
+import com.quizapp.worklingo.enums.LessonVisibility;
 import com.quizapp.worklingo.model.Lesson;
 import com.quizapp.worklingo.model.Topic;
 import lombok.Data;
@@ -22,6 +23,8 @@ public class LessonDTO {
 
     private Integer numberOfFlashcards;
 
+    private LessonVisibility visibility;
+
     public LessonDTO(Lesson lesson) {
         this.id = lesson.getId();
         this.title = lesson.getTitle();
@@ -30,5 +33,6 @@ public class LessonDTO {
         this.numberOfUpVotes = lesson.getNumberOfUpVotes();
         this.numberOfDownVotes = lesson.getNumberOfDownVotes();
         this.numberOfFlashcards = lesson.getNumberOfFlashcards();
+        this.visibility = lesson.getVisibility();
     }
 }
