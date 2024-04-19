@@ -9,4 +9,5 @@ public interface ITopicService {
     Page<Topic> getAllTopics(int page, int pageSize);
     Topic getTopicById(Integer id);
     Page<LessonDTO> getLessonsInTopic(Integer topicId, int page, int pageSize);
+    Page<Topic> searchTopics(String query, int page, int pageSize);
 }

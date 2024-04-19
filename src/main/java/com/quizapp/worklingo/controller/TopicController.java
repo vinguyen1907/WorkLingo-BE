@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(("/api/v1/topics"))
+@RequestMapping("/api/v1/topics")
 @RequiredArgsConstructor
 @Tag(name = "Topics")
 public class TopicController {
@@ -44,5 +44,14 @@ public class TopicController {
             @RequestParam(defaultValue = "10") int size
     ) {
         return ResponseEntity.ok(new PageDTO<>(topicService.getLessonsInTopic(topicId,page, size)));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<PageDTO<Topic>> searchLessons(
+            @RequestParam String query,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(new PageDTO<>(topicService.searchTopics(query, page, size)));
     }
 }
