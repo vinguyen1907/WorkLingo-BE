@@ -55,7 +55,9 @@ public class AuthenticationService implements IAuthenticationService {
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
         .accessToken(jwtToken)
-            .refreshToken(refreshToken)
+        .refreshToken(refreshToken)
+        .tokenType("Bearer")
+        .user(user.toDTO())
         .build();
   }
 
@@ -74,7 +76,9 @@ public class AuthenticationService implements IAuthenticationService {
     saveUserToken(user, jwtToken);
     return AuthenticationResponse.builder()
         .accessToken(jwtToken)
-            .refreshToken(refreshToken)
+        .refreshToken(refreshToken)
+        .tokenType("Bearer")
+        .user(user.toDTO())
         .build();
   }
 
