@@ -38,4 +38,11 @@ public class TopicService implements ITopicService {
         var lessons = lessonRepository.findAllByTopicId(topicId, pageable);
         return lessons.map(Lesson::toDTO);
     }
+
+    @Override
+    public Page<Topic> searchTopics(String query, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        var topics = topicRepository.findAllByNameContainingIgnoreCase(query, pageable);
+        return topics;
+    }
 }
