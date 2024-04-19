@@ -3,8 +3,7 @@ package com.quizapp.worklingo.controller;
 import com.quizapp.worklingo.dto.FlashcardDTO;
 import com.quizapp.worklingo.dto.LessonDTO;
 import com.quizapp.worklingo.dto.PageDTO;
-import com.quizapp.worklingo.dto.RecentLessonDTO;
-import com.quizapp.worklingo.model.Lesson;
+import com.quizapp.worklingo.dto.request.CreateLessonRequest;
 import com.quizapp.worklingo.service.interfaces.ILessonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -44,5 +43,12 @@ public class LessonController {
             @PathVariable Integer lessonId
     ) {
         return ResponseEntity.ok(lessonService.getFlashcardsInLesson(lessonId));
+    }
+
+    @PostMapping()
+    public ResponseEntity<LessonDTO> createLesson(
+            @RequestBody CreateLessonRequest request
+    ) {
+        return ResponseEntity.ok(lessonService.createLesson(request));
     }
 }
