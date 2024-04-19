@@ -46,6 +46,7 @@ public class LessonController {
     }
 
     @PostMapping()
+    @Operation(summary = "Create a new lesson.")
     public ResponseEntity<LessonDTO> createLesson(
             @RequestBody CreateLessonRequest request
     ) {

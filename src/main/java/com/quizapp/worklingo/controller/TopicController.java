@@ -47,6 +47,7 @@ public class TopicController {
     }
 
     @GetMapping("/search")
+    @Operation(summary = "Search topics by name.")
     public ResponseEntity<PageDTO<Topic>> searchLessons(
             @RequestParam String query,
             @RequestParam(defaultValue = "0") int page,
