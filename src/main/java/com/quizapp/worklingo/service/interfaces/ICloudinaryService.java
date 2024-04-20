@@ -6,4 +6,6 @@ import java.util.Map;
 
 public interface ICloudinaryService {
     Map uploadUserAvatar(Integer userId, MultipartFile image);
+
+    Map uploadTopicImage(Integer topicId, MultipartFile image);
 }
