@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/topics")
@@ -54,5 +55,35 @@ public class TopicController {
             @RequestParam(defaultValue = "10") int size
     ) {
         return ResponseEntity.ok(new PageDTO<>(topicService.searchTopics(query, page, size)));
+    }
+
+    @PostMapping()
+    @Operation(summary = "Create a new topic.")
+    public ResponseEntity<Topic> createTopic(
+            @RequestParam String name,
+            @RequestParam String description,
+            @RequestParam MultipartFile image
+            ) {
+        return ResponseEntity.ok(topicService.createTopic(name, description, image));
+    }
+
+    @PatchMapping("/{id}")
+    @Operation(summary = "Update a topic.")
+    public ResponseEntity<Topic> updateTopic(
+            @PathVariable Integer id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) MultipartFile image
+    ) {
+        return ResponseEntity.ok(topicService.updateTopic(id, name, description, image));
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a topic.")
+    public ResponseEntity<Void> deleteTopic(
+            @PathVariable Integer id
+    ) {
+        topicService.deleteTopic(id);
+        return ResponseEntity.noContent().build();
     }
 }
