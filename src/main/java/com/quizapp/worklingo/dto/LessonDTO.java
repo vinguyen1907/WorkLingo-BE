@@ -5,6 +5,7 @@ import com.quizapp.worklingo.model.Lesson;
 import com.quizapp.worklingo.model.Topic;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -25,6 +26,10 @@ public class LessonDTO {
 
     private LessonVisibility visibility;
 
+    private LocalDateTime createdTime;
+
+    private LocalDateTime updatedTime;
+
     public LessonDTO(Lesson lesson) {
         this.id = lesson.getId();
         this.title = lesson.getTitle();
@@ -34,5 +39,7 @@ public class LessonDTO {
         this.numberOfDownVotes = lesson.getNumberOfDownVotes();
         this.numberOfFlashcards = lesson.getNumberOfFlashcards();
         this.visibility = lesson.getVisibility();
+        this.createdTime = lesson.getCreatedTime();
+        this.updatedTime = lesson.getUpdatedTime();
     }
 }
