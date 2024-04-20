@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -19,8 +21,23 @@ public class Flashcard {
 
     private String answer;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Lesson lesson;
+
+    private LocalDateTime createdTime;
+
+    private LocalDateTime updatedTime;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdTime = LocalDateTime.now();
+        this.updatedTime = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedTime = LocalDateTime.now();
+    }
 
     public FlashcardDTO toDTO() {
         return new FlashcardDTO(this);

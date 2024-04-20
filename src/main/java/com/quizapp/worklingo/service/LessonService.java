@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -65,7 +66,9 @@ public class LessonService implements ILessonService {
                 0,
                 request.getFlashcards().size(),
                 request.getFlashcards(),
-                request.getVisibility() == null ? LessonVisibility.PUBLIC : request.getVisibility()
+                request.getVisibility() == null ? LessonVisibility.PUBLIC : request.getVisibility(),
+                LocalDateTime.now(),
+                LocalDateTime.now()
         );
         return lessonRepository.save(lesson).toDTO();
     }
