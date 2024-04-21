@@ -5,9 +5,12 @@ import com.quizapp.worklingo.enums.LessonVisibility;
 import com.quizapp.worklingo.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,6 +19,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@SQLDelete(sql = "UPDATE lesson SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,10 +29,10 @@ public class Lesson {
 
     private String title;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Topic topic;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User author;
 
     private Integer numberOfUpVotes;
@@ -45,6 +51,8 @@ public class Lesson {
     private LocalDateTime createdTime;
 
     private LocalDateTime updatedTime;
+
+    private boolean isDeleted = Boolean.FALSE;
 
     public Lesson(Lesson lesson) {
         this.id = lesson.getId();

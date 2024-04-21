@@ -5,6 +5,7 @@ import com.quizapp.worklingo.dto.LessonDTO;
 import com.quizapp.worklingo.dto.PageDTO;
 import com.quizapp.worklingo.dto.RecentLessonDTO;
 import com.quizapp.worklingo.dto.request.CreateLessonRequest;
+import com.quizapp.worklingo.dto.request.UpdateLessonRequest;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface ILessonService {
 
     PageDTO<RecentLessonDTO> getRecentLessons(Integer userId, int page, int size);
     LessonDTO createLesson(CreateLessonRequest request);
+    LessonDTO updateLesson(Integer lessonId, UpdateLessonRequest request);
+    void deleteLesson(Integer lessonId);
 }

@@ -4,6 +4,7 @@ import com.quizapp.worklingo.dto.FlashcardDTO;
 import com.quizapp.worklingo.dto.LessonDTO;
 import com.quizapp.worklingo.dto.PageDTO;
 import com.quizapp.worklingo.dto.request.CreateLessonRequest;
+import com.quizapp.worklingo.dto.request.UpdateLessonRequest;
 import com.quizapp.worklingo.service.interfaces.ILessonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -51,5 +52,23 @@ public class LessonController {
             @RequestBody CreateLessonRequest request
     ) {
         return ResponseEntity.ok(lessonService.createLesson(request));
+    }
+
+    @PutMapping("/{lessonId}")
+    @Operation(summary = "Update a lesson.")
+    public ResponseEntity<LessonDTO> updateLesson(
+            @PathVariable Integer lessonId,
+            @RequestBody UpdateLessonRequest request
+    ) {
+        return ResponseEntity.ok(lessonService.updateLesson(lessonId, request));
+    }
+
+    @DeleteMapping("/{lessonId}")
+    @Operation(summary = "Delete a lesson.")
+    public ResponseEntity<Void> deleteLesson(
+            @PathVariable Integer lessonId
+    ) {
+        lessonService.deleteLesson(lessonId);
+        return ResponseEntity.noContent().build();
     }
 }
