@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +14,8 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE flashcard SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 public class Flashcard {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,12 +25,14 @@ public class Flashcard {
 
     private String answer;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Lesson lesson;
 
     private LocalDateTime createdTime;
 
     private LocalDateTime updatedTime;
+
+    private boolean isDeleted = Boolean.FALSE;
 
     @PrePersist
     public void prePersist() {
