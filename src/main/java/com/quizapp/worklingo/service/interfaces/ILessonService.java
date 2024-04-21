@@ -20,4 +20,5 @@ public interface ILessonService {
     LessonDTO createLesson(CreateLessonRequest request);
     LessonDTO updateLesson(Integer lessonId, UpdateLessonRequest request);
     void deleteLesson(Integer lessonId);
+    void deleteFlashcardInLesson(Integer lessonId, Integer flashcardId);
 }

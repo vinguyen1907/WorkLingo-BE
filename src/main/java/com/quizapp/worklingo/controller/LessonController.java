@@ -38,13 +38,7 @@ public class LessonController {
         return ResponseEntity.ok(lessonService.getLessonById(lessonId));
     }
 
-    @GetMapping("/{lessonId}/flashcards")
-    @Operation(summary = "This method is used to get flashcards in a lesson.")
-    public ResponseEntity<List<FlashcardDTO>> getFlashcardsInLesson(
-            @PathVariable Integer lessonId
-    ) {
-        return ResponseEntity.ok(lessonService.getFlashcardsInLesson(lessonId));
-    }
+
 
     @PostMapping()
     @Operation(summary = "Create a new lesson.")
