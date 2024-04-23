@@ -15,6 +15,7 @@ import com.quizapp.worklingo.model.user.User;
 import com.quizapp.worklingo.repository.*;
 import com.quizapp.worklingo.service.interfaces.ILessonService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -86,5 +87,26 @@ public class LessonService implements ILessonService {
     public void deleteLesson(Integer lessonId) {
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new EntityNotFoundException("Lesson not found"));
         lessonRepository.delete(lesson);
+    }
+
+    @Override
+    @Transactional
+    public void deleteFlashcardInLesson(Integer lessonId, Integer flashcardId) {
+        Flashcard flashcard = flashcardRepository.findById(flashcardId).orElseThrow(() -> new EntityNotFoundException("Flashcard not found"));
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new EntityNotFoundException("Lesson not found"));
+        if (!flashcard.getLesson().getId().equals(lessonId)) {
+            throw new IllegalArgumentException("Flashcard does not belong to lesson");
+        }
+        flashcardRepository.delete(flashcard);
+
+        // Update number of flashcards in lesson
+        lesson.setNumberOfFlashcards(lesson.getNumberOfFlashcards() - 1);
+        lessonRepository.save(lesson);
+    }
+
+    @Override
+    public PageDTO<LessonDTO> getOwnLessons(Integer userId, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return new PageDTO<>(lessonRepository.findAllByAuthorIdOrderByUpdatedTimeDesc(userId, pageable).map(Lesson::toDTO));
     }
 }

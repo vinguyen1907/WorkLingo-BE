@@ -9,6 +9,8 @@ import com.quizapp.worklingo.model.user.ChangePasswordRequest;
 import com.quizapp.worklingo.model.user.User;
 import com.quizapp.worklingo.service.UserService;
 import com.quizapp.worklingo.service.interfaces.IFavoritesService;
+import com.quizapp.worklingo.service.interfaces.ILessonService;
+import com.quizapp.worklingo.service.interfaces.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +26,9 @@ import java.security.Principal;
 @Tag(name = "Users")
 public class UserController {
 
-    private final UserService userService;
+    private final IUserService userService;
     private final IFavoritesService favoritesService;
+    private final ILessonService lessonService;
 
     @GetMapping("/{userId}")
     @Operation(summary = "Get information of an user.")
@@ -90,5 +93,15 @@ public class UserController {
     ) {
         favoritesService.removeFavoriteLesson(userId, lessonId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{userId}/lessons")
+    @Operation(summary = "Get all own lessons of an user (order by updated time).")
+    public ResponseEntity<PageDTO<LessonDTO>> getOwnLessons(
+            @PathVariable Integer userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(lessonService.getOwnLessons(userId, page, size));
     }
 }
