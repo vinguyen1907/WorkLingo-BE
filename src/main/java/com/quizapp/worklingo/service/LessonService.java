@@ -103,4 +103,10 @@ public class LessonService implements ILessonService {
         lesson.setNumberOfFlashcards(lesson.getNumberOfFlashcards() - 1);
         lessonRepository.save(lesson);
     }
+
+    @Override
+    public PageDTO<LessonDTO> getOwnLessons(Integer userId, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return new PageDTO<>(lessonRepository.findAllByAuthorIdOrderByUpdatedTimeDesc(userId, pageable).map(Lesson::toDTO));
+    }
 }

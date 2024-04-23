@@ -12,4 +12,5 @@ public interface LessonRepository extends JpaRepository<Lesson, Integer> {
     Page<Lesson> findAllByVisibilityOrderByNumberOfUpVotesDesc(LessonVisibility visibility, Pageable pageable);
 
     Page<Lesson> findAllByTitleContainingIgnoreCase(String title, Pageable pageable);
+    Page<Lesson> findAllByAuthorIdOrderByUpdatedTimeDesc(Integer authorId, Pageable pageable);
 }
