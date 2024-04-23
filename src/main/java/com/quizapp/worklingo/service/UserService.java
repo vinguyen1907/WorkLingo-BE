@@ -13,6 +13,7 @@ import com.quizapp.worklingo.repository.UserRepository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,11 @@ public class UserService implements IUserService {
     @Override
     public UserDTO getUserById(Integer userId) {
         return userRepository.findById(userId).map(UserDTO::new).orElseThrow(() -> new IllegalArgumentException("User not found"));
+    }
+
+    @Override
+    public List<UserDTO> getAllUser() {
+        return userRepository.findAll().stream().map(UserDTO::new).toList();
     }
 
     @Override

@@ -13,6 +13,13 @@ spring:
       hibernate:
         format_sql: true
 
+
+
+
+CLOUDINARY_URL: cloudinary://123456789012345:abcdeFGH1234567ijklmnopqrstuvwx@worklingo
+EMAIL_USERNAME: abcde@gmail.com
+EMAIL_PASSWORD: 123456
+
 application:
   security:
     jwt:

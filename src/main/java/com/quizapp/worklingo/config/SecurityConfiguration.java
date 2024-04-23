@@ -12,6 +12,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.util.pattern.PathPatternParser;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import static com.quizapp.worklingo.model.user.Permission.*;
 import static com.quizapp.worklingo.model.user.Role.ADMIN;
