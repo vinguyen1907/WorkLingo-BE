@@ -1,15 +1,13 @@
 package com.quizapp.worklingo.controller;
 
-import com.quizapp.worklingo.dto.FavoritesDTO;
-import com.quizapp.worklingo.dto.LessonDTO;
-import com.quizapp.worklingo.dto.PageDTO;
-import com.quizapp.worklingo.dto.UserDTO;
+import com.quizapp.worklingo.dto.*;
 import com.quizapp.worklingo.dto.request.UpdateUserProfileRequest;
 import com.quizapp.worklingo.model.user.ChangePasswordRequest;
 import com.quizapp.worklingo.model.user.User;
 import com.quizapp.worklingo.service.UserService;
 import com.quizapp.worklingo.service.interfaces.IFavoritesService;
 import com.quizapp.worklingo.service.interfaces.ILessonService;
+import com.quizapp.worklingo.service.interfaces.IRatingService;
 import com.quizapp.worklingo.service.interfaces.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -29,6 +28,7 @@ public class UserController {
     private final IUserService userService;
     private final IFavoritesService favoritesService;
     private final ILessonService lessonService;
+    private final IRatingService ratingService;
 
     @GetMapping("/{userId}")
     @Operation(summary = "Get information of an user.")
@@ -103,5 +103,18 @@ public class UserController {
             @RequestParam(defaultValue = "10") int size
     ) {
         return ResponseEntity.ok(lessonService.getOwnLessons(userId, page, size));
+    }
+
+    @GetMapping("/{userId}/lessons/{lessonId}/rating")
+    @Operation(summary = "Check if an user has rated a lesson.")
+    public ResponseEntity<RatingDTO> checkUserRating(
+            @PathVariable Integer userId,
+            @PathVariable Integer lessonId
+    ) {
+        var rating = ratingService.checkUserRating(userId, lessonId);
+        if (rating == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(rating);
     }
 }

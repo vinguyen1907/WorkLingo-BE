@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +53,14 @@ public class RatingService implements IRatingService {
     public void removeRating(Integer userId, Integer lessonId) {
         var rating = ratingRepository.findAllByUserIdAndLessonId(userId, lessonId).orElseThrow(() -> new EntityNotFoundException("Rating not found"));
         ratingRepository.delete(rating);
+    }
+
+    @Override
+    public RatingDTO checkUserRating(Integer userId, Integer lessonId) {
+        userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        lessonRepository.findById(lessonId).orElseThrow(() -> new EntityNotFoundException("Lesson not found"));
+        Optional<Rating> rating = ratingRepository.findById(new RatingId(userId, lessonId));
+        return rating.map(Rating::toDTO).orElse(null);
     }
 
     private RatingDTO createNewRating(Integer userId, Integer lessonId, RatingType ratingType) {
