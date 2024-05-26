@@ -57,6 +57,7 @@ public class LessonService implements ILessonService {
 
     @Override
     public LessonDTO createLesson(CreateLessonRequest request) {
+        System.out.println("Topic id: " + request.getTopicId());
         Topic topic = topicRepository.findById(request.getTopicId()).orElseThrow(() -> new EntityNotFoundException("Topic not found"));
         User user = userRepository.findById(request.getAuthorId()).orElseThrow(() -> new EntityNotFoundException("User not found"));
         Lesson lesson = Lesson.builder()
@@ -72,7 +73,15 @@ public class LessonService implements ILessonService {
                 .updatedTime(LocalDateTime.now())
                 .isDeleted(false)
                 .build();
+
+        increaseNumberOfLessonsInTopic(topic);
+
         return lessonRepository.save(lesson).toDTO();
+    }
+
+    private void increaseNumberOfLessonsInTopic(Topic topic) {
+        topic.setNumberOfLessons(topic.getNumberOfLessons() + 1);
+        topicRepository.save(topic);
     }
 
     @Override
@@ -102,5 +111,11 @@ public class LessonService implements ILessonService {
         // Update number of flashcards in lesson
         lesson.setNumberOfFlashcards(lesson.getNumberOfFlashcards() - 1);
         lessonRepository.save(lesson);
+    }
+
+    @Override
+    public PageDTO<LessonDTO> getOwnLessons(Integer userId, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return new PageDTO<>(lessonRepository.findAllByAuthorIdOrderByUpdatedTimeDesc(userId, pageable).map(Lesson::toDTO));
     }
 }

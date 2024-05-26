@@ -1,5 +1,7 @@
 package com.quizapp.worklingo.service;
 
+import com.quizapp.worklingo.dto.LessonDTO;
+import com.quizapp.worklingo.dto.PageDTO;
 import com.quizapp.worklingo.dto.UserDTO;
 import com.quizapp.worklingo.model.user.ChangePasswordRequest;
 import com.quizapp.worklingo.model.user.User;

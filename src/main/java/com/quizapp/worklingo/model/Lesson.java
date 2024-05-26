@@ -74,8 +74,9 @@ public class Lesson {
 
     @PrePersist
     public void prePersist() {
-        this.createdTime = LocalDateTime.now();
-        this.updatedTime = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
+        this.createdTime = now;
+        this.updatedTime = now;
     }
 
     @PreUpdate
