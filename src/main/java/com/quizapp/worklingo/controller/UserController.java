@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -29,6 +30,12 @@ public class UserController {
     private final IFavoritesService favoritesService;
     private final ILessonService lessonService;
     private final IRatingService ratingService;
+
+    @GetMapping()
+    @Operation(summary = "Get all information of users.")
+    public ResponseEntity<List<UserDTO>> getAll() {
+        return ResponseEntity.ok(userService.getAllUser());
+    }
 
     @GetMapping("/{userId}")
     @Operation(summary = "Get information of an user.")
