@@ -57,7 +57,7 @@ public class AuthenticationService implements IAuthenticationService {
         .accessToken(jwtToken)
         .refreshToken(refreshToken)
         .tokenType("Bearer")
-        .user(user.toDTO())
+        .user(savedUser.toDTO())
         .build();
   }
 
