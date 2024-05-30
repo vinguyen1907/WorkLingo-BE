@@ -19,4 +19,6 @@ public interface ILessonService {
     void deleteLesson(Integer lessonId);
     void deleteFlashcardInLesson(Integer lessonId, Integer flashcardId);
     PageDTO<LessonDTO> getOwnLessons(Integer userId, Integer page, Integer size);
+
+    PageDTO<LessonDTO> getAllLessons(int page, int size);
 }

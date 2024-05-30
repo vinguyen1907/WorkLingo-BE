@@ -16,7 +16,7 @@ spring:
 
 
 
-CLOUDINARY_URL: cloudinary://123456789012345:abcdeFGH1234567ijklmnopqrstuvwx@worklingo
+CLOUDINARY_URL: cloudinary://568114928972274:3dLKHHD1BD7xMIifsW6IGRLPGkM@dhwz3ojau
 EMAIL_USERNAME: abcde@gmail.com
 EMAIL_PASSWORD: 123456
 

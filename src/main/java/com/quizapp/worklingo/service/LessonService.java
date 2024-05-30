@@ -118,4 +118,10 @@ public class LessonService implements ILessonService {
         Pageable pageable = PageRequest.of(page, size);
         return new PageDTO<>(lessonRepository.findAllByAuthorIdOrderByUpdatedTimeDesc(userId, pageable).map(Lesson::toDTO));
     }
+
+    @Override
+    public PageDTO<LessonDTO> getAllLessons(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return new PageDTO<>(lessonRepository.findAll(pageable).map(Lesson::toDTO));
+    }
 }

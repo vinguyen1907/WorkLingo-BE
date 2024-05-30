@@ -38,6 +38,14 @@ public class LessonController {
         return ResponseEntity.ok(lessonService.getLessonById(lessonId));
     }
 
+    @GetMapping
+    @Operation(summary = "This method is used to get all lessons.")
+    public ResponseEntity<PageDTO<LessonDTO>> getAllLessons(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(lessonService.getAllLessons(page, size));
+    }
 
 
     @PostMapping()
